@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.example.day2task.CustomTextView
+        android:id="@+id/txtTask"
+        android:text="Any Task"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginStart="10dp"/>
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/txtTask"
+        android:layout_marginLeft="100dp"
+        android:layout_marginEnd="-78dp"
+        android:src="@drawable/ic_delete" />
+
+</RelativeLayout>
