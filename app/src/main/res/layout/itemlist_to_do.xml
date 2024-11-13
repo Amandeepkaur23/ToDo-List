@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
-    <com.example.day2task.CustomTextView
+    <com.example.day2task.views.customviews.CustomTextView
         android:id="@+id/txtTask"
-        android:text="Any Task"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:text="Any Task"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:layout_marginStart="10dp"/>
+        android:drawableStart="@drawable/ic_profile"
+        android:drawablePadding="10dp"
+        android:padding="5dp"
+        android:layout_marginBottom="8dp" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/txtTask"
-        android:layout_marginLeft="100dp"
-        android:layout_marginEnd="-78dp"
-        android:src="@drawable/ic_delete" />
+        android:layout_height="40dp"
+        android:src="@drawable/ic_delete"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        android:layout_below="@id/btnDelete"/>
 
 </RelativeLayout>
