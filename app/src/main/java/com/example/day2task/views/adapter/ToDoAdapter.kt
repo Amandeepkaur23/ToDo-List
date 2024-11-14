@@ -1,41 +1,76 @@
 package com.example.day2task.views.adapter
 
-import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.example.day2task.views.customviews.CustomDialog
-import com.example.day2task.views.customviews.TransferDataListener
+import com.example.day2task.model.TaskDetail
+import com.example.day2task.views.ui.HomeFragmentDirections
 import com.example.myapplication.databinding.ItemlistToDoBinding
 
 
-class ToDoAdapter(private val taskList: List<String>,
-    private val context: Context) :
+class ToDoAdapter(private val taskList: MutableList<TaskDetail>) :
     RecyclerView.Adapter<ToDoAdapter.ToDOViewHolder>() {
 
-    private var taskData: MutableList<String> = taskList as MutableList<String>
+        private lateinit var taskDetail: TaskDetail
 
     inner class ToDOViewHolder(private val binding: ItemlistToDoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun binds(task: String, index: Int) {
-            binding.txtTask.setText(task)
+        fun binds(task: TaskDetail) {
+            binding.txtTask.setText(task.title)
 
-            binding.txtTask.setOnClickListener {
-                val customDialog = CustomDialog(context)
-                customDialog.show()
-                customDialog.transferDataListener = object: TransferDataListener{
-                    override fun receiveData(task: String) {
-                        binding.txtTask.text = task.trim()
-                        notifyItemChanged(taskList.size - 1)
-                    }
-                }
+//            //edit task
+//            binding.txtTask.setOnClickListener {
+//                val task = binding.txtTask.text.toString()
+//                val customDialog = CustomDialog(context, true, task)
+//                customDialog.show()
+//                customDialog.transferDataListener = object: TransferDataListener{
+//                    override fun receiveData(task: String) {
+//                        taskList[adapterPosition] = task.trim()
+//                        notifyItemChanged(adapterPosition)
+//                    }
+//                }
+//
+//            }
+
+//            binding.btnDelete.setOnClickListener {
+//                deleteTask(index)
+//            }
+
+            binding.btnEdit.setOnClickListener {
+                val editTitle = binding.txtTask.text.toString().trim()
+                val editDesc =  taskDetail.description
+                val taskDetail = TaskDetail(editTitle, editDesc)
+                val position = adapterPosition
+                val action = HomeFragmentDirections.actionHomeFragmentToEditFragment(taskDetail, position)
+
+                // this will navigate the current fragment i.e
+                // Registration to the Detail fragment
+                Navigation.findNavController(binding.root).navigate(
+                    action
+                )
+            }
+
+            binding.btnDetail.setOnClickListener {
+
+                val detailTitle = binding.txtTask.text.toString().trim()
+                Log.d("test", "check ${detailTitle}")
+                val detailDesc = "Description"
+                val taskDetail = TaskDetail(detailTitle, detailDesc)
+                val position = adapterPosition
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(taskDetail, position)
+
+                // this will navigate the current fragment i.e
+                // Registration to the Detail fragment
+                Navigation.findNavController(binding.root).navigate(
+                    action
+                )
+
 
             }
 
-            binding.btnDelete.setOnClickListener {
-                deleteTask(index)
-            }
         }
     }
 
@@ -51,11 +86,11 @@ class ToDoAdapter(private val taskList: List<String>,
 
     override fun onBindViewHolder(holder: ToDOViewHolder, position: Int) {
         val task = taskList[position]
-        holder.binds(task, position)
+        holder.binds(task)
     }
 
-    fun deleteTask(index: Int){
-        taskData.removeAt(index)
-        notifyDataSetChanged()
-    }
+//    fun deleteTask(index: Int){
+//        taskList.removeAt(index)
+//        notifyDataSetChanged()
+//    }
 }

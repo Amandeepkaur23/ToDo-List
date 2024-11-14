@@ -15,6 +15,7 @@
         android:textColor="@color/black"
         android:textSize="28sp"
         android:textStyle="bold"
+        app:fontFamily="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

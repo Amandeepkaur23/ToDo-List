@@ -15,8 +15,6 @@ import com.example.myapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(){
     private lateinit var binding: ActivityMainBinding
-    private var taskList = mutableListOf<String>()
-    private lateinit var taskAdapter: ToDoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,34 +28,6 @@ class MainActivity : AppCompatActivity(){
         }
         window.statusBarColor = getColor(R.color.green)
 
-        taskAdapter = ToDoAdapter(taskList, this)
-        binding.rvList.adapter = taskAdapter
-
-//        binding.btnSubmit.setOnClickListener {
-//            val res = binding.edtText.text.toString().trim()
-//            if(res.isNotEmpty()) {
-//                taskList.add(res)
-//                binding.edtText.text?.clear()
-//                taskAdapter.notifyItemChanged(taskList.size-1)
-//            } else {
-//                Toast.makeText(this, "Please Enter some text!!", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
-        binding.btnAdd.setOnClickListener {
-            val customDialog = CustomDialog(this)
-            customDialog.transferDataListener = object : TransferDataListener{
-                override fun receiveData(task: String) {
-                    taskList.add(task)
-                    taskAdapter.notifyItemChanged(taskList.size - 1)
-                }
-            }
-            customDialog.show()
-        }
 
     }
-
-//    override fun receiveData(task: String) {
-//
-//    }
 }
