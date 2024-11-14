@@ -27,10 +27,11 @@ class DetailFragment : Fragment() {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
 
         binding.Editbutton.setOnClickListener {
-            val detailTitle = binding.detailTitle.text.toString().trim()
-            val detailDesc = "Description"
-            val taskDetail = TaskDetail(detailTitle, detailDesc)
             val position = args.position
+            val detailTitle = binding.detailTitle.text.toString().trim()
+            val detailDesc = binding.detailDesc.text.toString().trim()
+            val taskDetail = TaskDetail(detailTitle, detailDesc)
+
             val action = DetailFragmentDirections.actionDetailFragmentToEditFragment(taskDetail, position)
 
             // this will navigate the current fragment i.e

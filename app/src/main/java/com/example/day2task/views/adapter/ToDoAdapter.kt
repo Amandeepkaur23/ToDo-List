@@ -13,8 +13,6 @@ import com.example.myapplication.databinding.ItemlistToDoBinding
 class ToDoAdapter(private val taskList: MutableList<TaskDetail>) :
     RecyclerView.Adapter<ToDoAdapter.ToDOViewHolder>() {
 
-        private lateinit var taskDetail: TaskDetail
-
     inner class ToDOViewHolder(private val binding: ItemlistToDoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -41,7 +39,7 @@ class ToDoAdapter(private val taskList: MutableList<TaskDetail>) :
 
             binding.btnEdit.setOnClickListener {
                 val editTitle = binding.txtTask.text.toString().trim()
-                val editDesc =  taskDetail.description
+                val editDesc =  taskList[adapterPosition].description
                 val taskDetail = TaskDetail(editTitle, editDesc)
                 val position = adapterPosition
                 val action = HomeFragmentDirections.actionHomeFragmentToEditFragment(taskDetail, position)
@@ -57,7 +55,7 @@ class ToDoAdapter(private val taskList: MutableList<TaskDetail>) :
 
                 val detailTitle = binding.txtTask.text.toString().trim()
                 Log.d("test", "check ${detailTitle}")
-                val detailDesc = "Description"
+                val detailDesc = taskList[adapterPosition].description
                 val taskDetail = TaskDetail(detailTitle, detailDesc)
                 val position = adapterPosition
                 val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(taskDetail, position)

@@ -38,6 +38,7 @@ class AddFragment : Fragment() {
 
             if (title.isNotEmpty() && description.isNotEmpty()) {
                 val taskDetail = TaskDetail(title, description)
+
                 Log.d("test", " taskDetail is ${taskDetail.description}")
                 setFragmentResult("requestKey", bundleOf("task" to taskDetail))
                 findNavController().popBackStack()
