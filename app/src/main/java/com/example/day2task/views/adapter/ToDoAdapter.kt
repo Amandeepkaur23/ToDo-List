@@ -9,7 +9,6 @@ import com.example.day2task.model.TaskDetail
 import com.example.day2task.views.ui.HomeFragmentDirections
 import com.example.myapplication.databinding.ItemlistToDoBinding
 
-
 class ToDoAdapter(private val taskList: MutableList<TaskDetail>) :
     RecyclerView.Adapter<ToDoAdapter.ToDOViewHolder>() {
 
@@ -44,31 +43,22 @@ class ToDoAdapter(private val taskList: MutableList<TaskDetail>) :
                 val position = adapterPosition
                 val action = HomeFragmentDirections.actionHomeFragmentToEditFragment(taskDetail, position)
 
-                // this will navigate the current fragment i.e
-                // Registration to the Detail fragment
                 Navigation.findNavController(binding.root).navigate(
                     action
                 )
             }
 
             binding.btnDetail.setOnClickListener {
-
                 val detailTitle = binding.txtTask.text.toString().trim()
-                Log.d("test", "check ${detailTitle}")
                 val detailDesc = taskList[adapterPosition].description
                 val taskDetail = TaskDetail(detailTitle, detailDesc)
                 val position = adapterPosition
                 val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(taskDetail, position)
 
-                // this will navigate the current fragment i.e
-                // Registration to the Detail fragment
                 Navigation.findNavController(binding.root).navigate(
                     action
                 )
-
-
             }
-
         }
     }
 

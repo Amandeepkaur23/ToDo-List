@@ -10,11 +10,9 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.example.day2task.model.TaskDetail
-import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentAddBinding
 
 class AddFragment : Fragment() {
-
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
 
@@ -29,17 +27,12 @@ class AddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding.addButton.setOnClickListener {
             val title = binding.addTitle.text.toString().trim()
             val description = binding.addDesc.text.toString().trim()
 
-            Log.d("test", title)
-
             if (title.isNotEmpty() && description.isNotEmpty()) {
                 val taskDetail = TaskDetail(title, description)
-
-                Log.d("test", " taskDetail is ${taskDetail.description}")
                 setFragmentResult("requestKey", bundleOf("task" to taskDetail))
                 findNavController().popBackStack()
             } else {
@@ -47,7 +40,6 @@ class AddFragment : Fragment() {
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -11,7 +11,6 @@ import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.day2task.model.TaskDetail
-import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentEditBinding
 
 class EditFragment : Fragment() {
@@ -32,12 +31,7 @@ class EditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val taskDetails = args.task
-
-
-        Log.d("test", "test agrs ${taskDetails.title}")
-
         binding.edtTitle.setText(taskDetails.title)
         binding.editDesc.setText(taskDetails.description)
 

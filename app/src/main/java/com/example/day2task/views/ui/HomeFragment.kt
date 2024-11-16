@@ -10,13 +10,10 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.example.day2task.model.TaskDetail
 import com.example.day2task.views.adapter.ToDoAdapter
-import com.example.day2task.views.customviews.CustomDialog
-import com.example.day2task.views.customviews.TransferDataListener
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -37,7 +34,6 @@ class HomeFragment : Fragment() {
         taskAdapter = ToDoAdapter(taskList)
         binding.rvList.adapter = taskAdapter
 
-
 //        //add task
 //        binding.btnAdd.setOnClickListener {
 //
@@ -55,10 +51,9 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_addFragment)
         }
 
+        //data from Add fragment to home fragment
         setFragmentResultListener("requestKey") { requestKey, bundle ->
             val result = bundle.getParcelable<TaskDetail>("task")
-            Log.d("test", "Received TaskDetail: $result")
-
             if (result != null) {
                 taskList.add(result)
                 taskAdapter.notifyItemChanged(taskList.size - 1)
@@ -67,21 +62,21 @@ class HomeFragment : Fragment() {
             }
         }
 
+        // Data from edit to home fragment
         setFragmentResultListener("requestEditTask") { requestKey, bundle ->
             val editTask = bundle.getParcelable<TaskDetail>("editTask")
             val position = bundle.getInt("position")
             if(editTask != null){
                 taskList[position] = editTask
                 taskAdapter.notifyItemChanged(position)
+            } else {
+                Log.d("test", "Received TaskDetail is null")
             }
-
         }
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }
