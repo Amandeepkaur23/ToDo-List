@@ -1,17 +1,12 @@
 package com.example.day2task.views.ui
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.day2task.views.adapter.ToDoAdapter
-import com.example.day2task.views.customviews.CustomDialog
-import com.example.day2task.views.customviews.TransferDataListener
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMainBinding
-
 
 class MainActivity : AppCompatActivity(){
     private lateinit var binding: ActivityMainBinding

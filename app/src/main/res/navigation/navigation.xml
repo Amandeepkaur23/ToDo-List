@@ -25,6 +25,7 @@
             app:destination="@id/addFragment"
             app:popUpToInclusive="false" />
     </fragment>
+
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.day2task.views.ui.DetailFragment"
@@ -33,22 +34,20 @@
         <action
             android:id="@+id/action_detailFragment_to_editFragment"
             app:destination="@id/editFragment"
-            app:popUpTo="@id/detailFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
         <argument
         android:name="task"
         app:argType="com.example.day2task.model.TaskDetail" />
         <argument
             android:name="position"
             app:argType="integer" />
-
     </fragment>
+
     <fragment
         android:id="@+id/editFragment"
         android:name="com.example.day2task.views.ui.EditFragment"
         android:label="fragment_edit"
         tools:layout="@layout/fragment_edit">
-
         <argument
             android:name="task"
             app:argType="com.example.day2task.model.TaskDetail" />
@@ -56,6 +55,7 @@
             android:name="position"
             app:argType="integer" />
     </fragment>
+
     <fragment
         android:id="@+id/addFragment"
         android:name="com.example.day2task.views.ui.AddFragment"
