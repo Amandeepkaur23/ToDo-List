@@ -15,7 +15,7 @@ class ToDoAdapter(private val taskList: MutableList<TaskDetail>) :
     inner class ToDOViewHolder(private val binding: ItemlistToDoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun binds(task: TaskDetail) {
+        fun binds(task: TaskDetail, index: Int) {
             binding.txtTask.setText(task.title)
 
 //            //edit task
@@ -54,10 +54,13 @@ class ToDoAdapter(private val taskList: MutableList<TaskDetail>) :
                 val taskDetail = TaskDetail(detailTitle, detailDesc)
                 val position = adapterPosition
                 val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(taskDetail, position)
-
                 Navigation.findNavController(binding.root).navigate(
                     action
                 )
+            }
+
+            binding.btnDelete.setOnClickListener{
+                deleteTask(index)
             }
         }
     }
@@ -74,11 +77,11 @@ class ToDoAdapter(private val taskList: MutableList<TaskDetail>) :
 
     override fun onBindViewHolder(holder: ToDOViewHolder, position: Int) {
         val task = taskList[position]
-        holder.binds(task)
+        holder.binds(task, position)
     }
 
-//    fun deleteTask(index: Int){
-//        taskList.removeAt(index)
-//        notifyDataSetChanged()
-//    }
+    fun deleteTask(index: Int){
+        taskList.removeAt(index)
+        notifyDataSetChanged()
+    }
 }

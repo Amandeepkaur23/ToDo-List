@@ -73,6 +73,21 @@ class HomeFragment : Fragment() {
                 Log.d("test", "Received TaskDetail is null")
             }
         }
+
+        //data from detail to home fragment by onBackPress
+        setFragmentResultListener("requestDetailEditTask"){ requestKey, bundle ->
+            val detailTask = bundle.getParcelable<TaskDetail>("detailTask")
+            val position = bundle.getInt("position")
+
+            if(detailTask != null){
+                taskList[position] = detailTask
+                taskAdapter.notifyItemChanged(position)
+            }
+            else {
+                Log.d("test", "Received TaskDetail is null")
+            }
+
+        }
     }
 
     override fun onDestroyView() {
