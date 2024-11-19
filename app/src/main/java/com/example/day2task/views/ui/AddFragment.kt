@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.day2task.model.TaskDetail
+import com.example.day2task.viewmodel.ToDoViewModel
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentAddBinding
 
@@ -17,6 +19,8 @@ class AddFragment : Fragment() {
 
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
+
+    private val toDoViewModel: ToDoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,25 +33,21 @@ class AddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding.addButton.setOnClickListener {
             val title = binding.addTitle.text.toString().trim()
             val description = binding.addDesc.text.toString().trim()
 
-            Log.d("test", title)
-
             if (title.isNotEmpty() && description.isNotEmpty()) {
-                val taskDetail = TaskDetail(title, description)
-
-                Log.d("test", " taskDetail is ${taskDetail.description}")
-                setFragmentResult("requestKey", bundleOf("task" to taskDetail))
+                val taskDetail = TaskDetail(title = title, description = description)
+                val taskId = toDoViewModel.insertTask(taskDetail)
+                taskDetail.id = taskId.toInt()
+                setFragmentResult("requestAddTask", bundleOf("task" to taskDetail))
                 findNavController().popBackStack()
             } else {
-                Log.d("test", "field are empty")
+                Log.d("test", "No task to Add")
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

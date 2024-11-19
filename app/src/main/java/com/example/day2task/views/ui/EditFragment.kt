@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.day2task.model.TaskDetail
+import com.example.day2task.viewmodel.ToDoViewModel
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentEditBinding
 
@@ -20,6 +22,8 @@ class EditFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args : EditFragmentArgs by navArgs()
+
+    private val toDoViewModel: ToDoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,24 +36,21 @@ class EditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val taskDetails = args.task
-
-
-        Log.d("test", "test agrs ${taskDetails.title}")
-
         binding.edtTitle.setText(taskDetails.title)
         binding.editDesc.setText(taskDetails.description)
 
         binding.editButton.setOnClickListener {
             val editTitle = binding.edtTitle.text.toString().trim()
             val editDesc = binding.editDesc.text.toString().trim()
-            val position = args.position
+            //val position = args.position
 
             if(editTitle.isNotEmpty() && editDesc.isNotEmpty()) {
-                val taskDetail = TaskDetail(editTitle, editDesc)
-
-                setFragmentResult("requestEditTask", bundleOf("editTask" to taskDetail, "position" to position))
+                val taskDetail = TaskDetail( title = editTitle, description = editDesc)
+                val task_id = taskDetail.id
+                Log.d("test", task_id.toString())
+                toDoViewModel.updateTask(taskDetail)
+                //setFragmentResult("requestEditTask", bundleOf("editTask" to taskDetail, "position" to task_id))
                 findNavController().popBackStack()
             }
         }

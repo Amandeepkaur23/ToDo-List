@@ -17,7 +17,7 @@ class CustomDialog(context: Context,
 ): Dialog(context) {
     private lateinit var binding: CustomDialogBinding
 
-    var transferDataListener: TransferDataListener? = null
+    private var transferDataListener: TransferDataListener? = null
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

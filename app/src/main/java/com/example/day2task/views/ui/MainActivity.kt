@@ -27,7 +27,5 @@ class MainActivity : AppCompatActivity(){
             insets
         }
         window.statusBarColor = getColor(R.color.green)
-
-
     }
 }
