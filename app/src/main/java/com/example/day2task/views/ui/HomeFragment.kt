@@ -67,7 +67,8 @@ class HomeFragment : Fragment() {
         })
 
 //        setFragmentResultListener("requestEditTask") { _, bundle ->
-//            val editTask = bundle.getParcelable<TaskDetail>("editTask")
+//            val editTask = BundleCompat.getParcelable(bundle, "editTask", TaskDetail::class.java)
+//
 //            val position = bundle.getInt("position")
 //
 //            if (editTask != null) {
@@ -95,14 +96,10 @@ class HomeFragment : Fragment() {
                 val deletedTask: TaskDetail = taskList[position]
 
                 toDoViewModel.deleteTask(deletedTask)
-                /*taskList.removeAt(position)
-                taskAdapter.notifyItemRemoved(position)*/
 
                 Snackbar.make(binding.rvList, "Deleted " + deletedTask.title, Snackbar.LENGTH_LONG)
                     .setAction("Undo") {
                         toDoViewModel.insertTask(deletedTask)
-                        //taskList.add(task)
-                        //taskAdapter.notifyItemInserted(position)
                 }.show()
             }
         }).attachToRecyclerView(binding.rvList)

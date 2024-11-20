@@ -43,7 +43,6 @@ class EditFragment : Fragment() {
         binding.editButton.setOnClickListener {
             val editTitle = binding.edtTitle.text.toString().trim()
             val editDesc = binding.editDesc.text.toString().trim()
-            //val position = args.position
 
             if(editTitle.isNotEmpty() && editDesc.isNotEmpty()) {
                 taskDetails.title = editTitle

@@ -38,9 +38,6 @@
         <argument
         android:name="task"
         app:argType="com.example.day2task.model.TaskDetail" />
-        <argument
-            android:name="position"
-            app:argType="integer" />
     </fragment>
 
     <fragment
@@ -51,9 +48,6 @@
         <argument
             android:name="task"
             app:argType="com.example.day2task.model.TaskDetail" />
-        <argument
-            android:name="position"
-            app:argType="integer" />
     </fragment>
 
     <fragment
