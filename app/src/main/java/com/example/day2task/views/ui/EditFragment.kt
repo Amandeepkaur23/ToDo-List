@@ -43,14 +43,11 @@ class EditFragment : Fragment() {
         binding.editButton.setOnClickListener {
             val editTitle = binding.edtTitle.text.toString().trim()
             val editDesc = binding.editDesc.text.toString().trim()
-            //val position = args.position
+            val position = args.position
 
             if(editTitle.isNotEmpty() && editDesc.isNotEmpty()) {
                 val taskDetail = TaskDetail( title = editTitle, description = editDesc)
-                val task_id = taskDetail.id
-                Log.d("test", task_id.toString())
-                toDoViewModel.updateTask(taskDetail)
-                //setFragmentResult("requestEditTask", bundleOf("editTask" to taskDetail, "position" to task_id))
+                setFragmentResult("requestEditTask", bundleOf("editTask" to taskDetail, "position" to position))
                 findNavController().popBackStack()
             }
         }

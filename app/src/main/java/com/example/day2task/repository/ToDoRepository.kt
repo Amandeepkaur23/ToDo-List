@@ -1,7 +1,5 @@
 package com.example.day2task.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.day2task.db.TaskDao
 import com.example.day2task.model.TaskDetail
 

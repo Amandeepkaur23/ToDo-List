@@ -11,25 +11,33 @@ import com.example.day2task.repository.ToDoRepository
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class ToDoViewModel(private val application: Application): AndroidViewModel(application) {
+class ToDoViewModel(private val applicationContext: Application): AndroidViewModel(applicationContext) {
 
-    val toDoRepository = ToDoRepository(TaskDatabase.getDatabase(application).taskDao())
+    private val toDoRepository = ToDoRepository(TaskDatabase.getDatabase(applicationContext).taskDao())
 
-    var taskList: MutableLiveData<List<TaskDetail>> = MutableLiveData()
+    var taskLiveData: MutableLiveData<List<TaskDetail>> = MutableLiveData()
 
     init {
         viewModelScope.launch {
-            taskList.postValue(toDoRepository.getTasks())
+            taskLiveData.postValue(toDoRepository.getTasks())
         }
     }
 
-    fun insertTask(task: TaskDetail):Long = runBlocking {
-        val id = toDoRepository.insertTask(task)
-        task.id = id.toInt()
-        taskList.value =  taskList.value?.plus(task)
-        id
-    }
+//    fun insertTask(task: TaskDetail):Long = runBlocking {
+//        val id = toDoRepository.insertTask(task)
+//        task.id = id
+//        taskLiveData.value =  taskLiveData.value?.plus(task)
+//        id
+//    }
 
+    fun insertTask(task: TaskDetail){
+        viewModelScope.launch {
+            val id = toDoRepository.insertTask(task) // Perform database operation
+            task.id = id
+            // Update LiveData on the main thread
+            taskLiveData.value = taskLiveData.value?.plus(task) ?: listOf(task)
+        }
+    }
 
     fun updateTask(task: TaskDetail){
         viewModelScope.launch {

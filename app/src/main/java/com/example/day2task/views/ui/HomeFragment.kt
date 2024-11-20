@@ -19,6 +19,7 @@ import com.example.day2task.viewmodel.ToDoViewModel
 import com.example.day2task.views.adapter.ToDoAdapter
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
+import com.google.android.material.snackbar.Snackbar
 
 class HomeFragment : Fragment() {
     //binding
@@ -28,12 +29,12 @@ class HomeFragment : Fragment() {
     private var taskList = mutableListOf<TaskDetail>()
     private lateinit var taskAdapter: ToDoAdapter
     //viewModel
-    val toDoViewModel: ToDoViewModel by viewModels()
+    private val toDoViewModel: ToDoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return  binding.root
     }
@@ -49,32 +50,30 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_addFragment)
         }
 
-        toDoViewModel.taskList.observe(viewLifecycleOwner, Observer {
+        //Add data to db
+        setFragmentResultListener("requestAddTask") { _, bundle ->
+            val result = BundleCompat.getParcelable(bundle, "task", TaskDetail::class.java)
+            if (result != null) {
+//                taskList.add(result)
+//                taskAdapter.notifyItemInserted(taskList.size - 1)
+                toDoViewModel.insertTask(result)
+            } else {
+                Log.d("test", "Received TaskDetail is null")
+            }
+        }
+
+        toDoViewModel.taskLiveData.observe(viewLifecycleOwner, Observer {
             taskList.clear()
             taskList.addAll(it)
             taskAdapter.notifyDataSetChanged()
-            Log.d("test", "check observer called.....")
+            Log.d("test", "observer called")
         })
 
-//        setFragmentResultListener("requestEditTask") { _, bundle ->
-//            val editTask = bundle.getParcelable<TaskDetail>("editTask")
-//            val position = bundle.getInt("position")
-//            if (editTask != null) {
-//                taskList[position] = editTask
-//                taskAdapter.notifyItemChanged(position)
-//            }
-//        }
-
-        //Add data to db
-
-        setFragmentResultListener("requestAddTask") { requestKey, bundle ->
-
-            val result = BundleCompat.getParcelable(bundle, "task", TaskDetail::class.java)
-            if (result != null) {
-                taskList.add(result)
-                taskAdapter.notifyItemChanged(taskList.size - 1)
-            } else {
-                Log.d("test", "Received TaskDetail is null")
+        setFragmentResultListener("requestEditTask") { _, bundle ->
+            val editTask = bundle.getParcelable<TaskDetail>("editTask")
+            val position = bundle.getInt("position")
+            if (editTask != null) {
+                toDoViewModel.updateTask(editTask)
             }
         }
 
@@ -92,25 +91,20 @@ class HomeFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
+                Log.d("test", "deleted pos: $position")
                 val deletedTask: TaskDetail = taskList[position]
 
                 toDoViewModel.deleteTask(deletedTask)
+                taskList.removeAt(position)
                 taskAdapter.notifyItemRemoved(position)
 
 //                Snackbar.make(binding.rvList, "Deleted " + deletedTask.title, Snackbar.LENGTH_LONG)
 //                    .setAction("Undo") {
-//
-//                        // adding on click listener to our action of snack bar.
-//                        // below line is to add our item to array list with a position.
-//
-//                        val task = TaskDetail(position, deletedTask.title, deletedTask.description)
+//                        val task = TaskDetail(position.toLong(), deletedTask.title, deletedTask.description)
 //                        toDoViewModel.insertTask(task)
-//                        //taskList.add(position, deletedTask)
-//
-//                        // below line is to notify item is
-//                        // added to our adapter class.
-//                        taskAdapter.notifyItemInserted(position)
-//                    }.show()
+//                        //taskList.add(task)
+//                        //taskAdapter.notifyItemInserted(position)
+//                }.show()
             }
         }).attachToRecyclerView(binding.rvList)
     }

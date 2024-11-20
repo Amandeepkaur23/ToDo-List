@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
@@ -20,7 +21,7 @@ class AddFragment : Fragment() {
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
 
-    private val toDoViewModel: ToDoViewModel by viewModels()
+    //private val toDoViewModel: ToDoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,12 +40,12 @@ class AddFragment : Fragment() {
 
             if (title.isNotEmpty() && description.isNotEmpty()) {
                 val taskDetail = TaskDetail(title = title, description = description)
-                val taskId = toDoViewModel.insertTask(taskDetail)
-                taskDetail.id = taskId.toInt()
+                //val taskId = toDoViewModel.insertTask(taskDetail)
+                //taskDetail.id = taskId
                 setFragmentResult("requestAddTask", bundleOf("task" to taskDetail))
                 findNavController().popBackStack()
             } else {
-                Log.d("test", "No task to Add")
+                Toast.makeText(requireContext(), "Please enter title and desc!!", Toast.LENGTH_SHORT).show()
             }
         }
     }
