@@ -45,7 +45,6 @@ class HomeFragment : Fragment() {
         taskAdapter = ToDoAdapter(taskList)
         binding.rvList.adapter = taskAdapter
 
-        //Add task to RV
         binding.btnAdd.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_addFragment)
         }
@@ -54,8 +53,6 @@ class HomeFragment : Fragment() {
         setFragmentResultListener("requestAddTask") { _, bundle ->
             val result = BundleCompat.getParcelable(bundle, "task", TaskDetail::class.java)
             if (result != null) {
-//                taskList.add(result)
-//                taskAdapter.notifyItemInserted(taskList.size - 1)
                 toDoViewModel.insertTask(result)
             } else {
                 Log.d("test", "Received TaskDetail is null")
@@ -69,13 +66,16 @@ class HomeFragment : Fragment() {
             Log.d("test", "observer called")
         })
 
-        setFragmentResultListener("requestEditTask") { _, bundle ->
-            val editTask = bundle.getParcelable<TaskDetail>("editTask")
-            val position = bundle.getInt("position")
-            if (editTask != null) {
-                toDoViewModel.updateTask(editTask)
-            }
-        }
+//        setFragmentResultListener("requestEditTask") { _, bundle ->
+//            val editTask = bundle.getParcelable<TaskDetail>("editTask")
+//            val position = bundle.getInt("position")
+//
+//            if (editTask != null) {
+//                Log.d("test", "edt fragmnet: $editTask and position: $position")
+//                /*taskList[position] = editTask
+//                taskAdapter.notifyItemChanged(position)*/
+//            }
+//        }
 
         //delete item in recyclerView
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -95,16 +95,15 @@ class HomeFragment : Fragment() {
                 val deletedTask: TaskDetail = taskList[position]
 
                 toDoViewModel.deleteTask(deletedTask)
-                taskList.removeAt(position)
-                taskAdapter.notifyItemRemoved(position)
+                /*taskList.removeAt(position)
+                taskAdapter.notifyItemRemoved(position)*/
 
-//                Snackbar.make(binding.rvList, "Deleted " + deletedTask.title, Snackbar.LENGTH_LONG)
-//                    .setAction("Undo") {
-//                        val task = TaskDetail(position.toLong(), deletedTask.title, deletedTask.description)
-//                        toDoViewModel.insertTask(task)
-//                        //taskList.add(task)
-//                        //taskAdapter.notifyItemInserted(position)
-//                }.show()
+                Snackbar.make(binding.rvList, "Deleted " + deletedTask.title, Snackbar.LENGTH_LONG)
+                    .setAction("Undo") {
+                        toDoViewModel.insertTask(deletedTask)
+                        //taskList.add(task)
+                        //taskAdapter.notifyItemInserted(position)
+                }.show()
             }
         }).attachToRecyclerView(binding.rvList)
     }

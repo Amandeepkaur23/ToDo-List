@@ -15,38 +15,33 @@ class ToDoViewModel(private val applicationContext: Application): AndroidViewMod
 
     private val toDoRepository = ToDoRepository(TaskDatabase.getDatabase(applicationContext).taskDao())
 
-    var taskLiveData: MutableLiveData<List<TaskDetail>> = MutableLiveData()
+    var taskLiveData = toDoRepository.taskLiveData
 
-    init {
+    /*init {
         viewModelScope.launch {
             taskLiveData.postValue(toDoRepository.getTasks())
         }
-    }
-
-//    fun insertTask(task: TaskDetail):Long = runBlocking {
-//        val id = toDoRepository.insertTask(task)
-//        task.id = id
-//        taskLiveData.value =  taskLiveData.value?.plus(task)
-//        id
-//    }
+    }*/
 
     fun insertTask(task: TaskDetail){
         viewModelScope.launch {
-            val id = toDoRepository.insertTask(task) // Perform database operation
-            task.id = id
+            toDoRepository.insertTask(task) // Perform database operation
+            //task.id = id
             // Update LiveData on the main thread
-            taskLiveData.value = taskLiveData.value?.plus(task) ?: listOf(task)
+            //taskLiveData.value = taskLiveData.value?.plus(task) ?: listOf(task)
         }
     }
 
     fun updateTask(task: TaskDetail){
         viewModelScope.launch {
+//            taskLiveData.value = taskLiveData.value?.plus(task) ?: listOf(task)
             toDoRepository.updateTask(task)
         }
     }
 
     fun deleteTask(task: TaskDetail){
         viewModelScope.launch {
+           // taskLiveData.value = taskLiveData.value?.minus(task)
             toDoRepository.deleteTask(task)
         }
     }

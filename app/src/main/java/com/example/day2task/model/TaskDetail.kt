@@ -10,6 +10,6 @@ import kotlinx.parcelize.Parcelize
 data class TaskDetail(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
-    val title: String,
-    val description: String
+    var title: String,
+    var description: String
 ) : Parcelable

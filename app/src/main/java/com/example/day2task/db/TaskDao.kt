@@ -1,5 +1,6 @@
 package com.example.day2task.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -20,5 +21,5 @@ interface TaskDao {
     suspend fun updateTask(task: TaskDetail)
 
     @Query("SELECT * FROM Taskdb")
-    suspend fun getTask(): List<TaskDetail>
+    fun getTask(): LiveData<List<TaskDetail>>
 }

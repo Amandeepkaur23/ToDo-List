@@ -24,7 +24,7 @@ class ToDoAdapter(private val taskList: MutableList<TaskDetail>) :
                 val position = adapterPosition
                 Log.d("test", "in adapter ${position}")
                 val taskDetail = TaskDetail(title = editTitle, description = editDesc)
-                val action = HomeFragmentDirections.actionHomeFragmentToEditFragment(taskDetail, position)
+                val action = HomeFragmentDirections.actionHomeFragmentToEditFragment(taskList[position], position)
 
                 Navigation.findNavController(binding.root).navigate(
                     action
