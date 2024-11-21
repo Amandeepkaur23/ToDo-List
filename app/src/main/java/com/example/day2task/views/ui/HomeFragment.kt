@@ -2,12 +2,11 @@ package com.example.day2task.views.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.BundleCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -22,19 +21,17 @@ import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.android.material.snackbar.Snackbar
 
 class HomeFragment : Fragment() {
-    //binding
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    //taskList and adapter
     private var taskList = mutableListOf<TaskDetail>()
     private lateinit var taskAdapter: ToDoAdapter
-    //viewModel
     private val toDoViewModel: ToDoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return  binding.root
     }
@@ -66,17 +63,6 @@ class HomeFragment : Fragment() {
             Log.d("test", "observer called")
         })
 
-//        setFragmentResultListener("requestEditTask") { _, bundle ->
-//            val editTask = BundleCompat.getParcelable(bundle, "editTask", TaskDetail::class.java)
-//
-//            val position = bundle.getInt("position")
-//
-//            if (editTask != null) {
-//                Log.d("test", "edt fragmnet: $editTask and position: $position")
-//                /*taskList[position] = editTask
-//                taskAdapter.notifyItemChanged(position)*/
-//            }
-//        }
 
         //delete item in recyclerView
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -109,5 +95,4 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

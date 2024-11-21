@@ -7,43 +7,51 @@
 
     <com.example.day2task.views.customviews.CustomTextView
         android:id="@+id/txtTask"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="11dp"
         android:layout_marginTop="5dp"
-        android:text="Any Task"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toStartOf="@+id/btnDetail"
         android:drawableStart="@drawable/ic_profile"
         android:drawablePadding="10dp"
         android:padding="10dp"
-        android:layout_marginBottom="8dp"
-        />
+        android:text="Any Task"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/btnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_app_icon"
+        android:src="@drawable/ic_edit"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="5dp"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:layout_centerVertical="true"/>
 
     <ImageView
         android:id="@+id/btnDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_details"
+        android:layout_above="@+id/view"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="36dp"
         android:layout_marginTop="5dp"
-        android:padding="10dp"/>
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="12dp"
+        android:padding="10dp"
+        android:src="@drawable/ic_analytics"
+        android:layout_centerVertical="true"/>
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@id/txtTask"
         android:background="@color/grey"
-        android:layout_below="@id/txtTask"/>
+        android:layout_marginTop="1dp"/>
 
 </RelativeLayout>

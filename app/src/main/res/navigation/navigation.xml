@@ -24,6 +24,9 @@
             android:id="@+id/action_homeFragment_to_addFragment"
             app:destination="@id/addFragment"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_homeFragment_to_dataFromApiFragment"
+            app:destination="@id/dataFromApiFragment" />
     </fragment>
 
     <fragment
@@ -55,4 +58,9 @@
         android:name="com.example.day2task.views.ui.AddFragment"
         android:label="fragment_add"
         tools:layout="@layout/fragment_add" />
+    <fragment
+        android:id="@+id/dataFromApiFragment"
+        android:name="com.example.day2task.views.ui.DataFromApiFragment"
+        android:label="fragment_data_from_api"
+        tools:layout="@layout/fragment_data_from_api" />
 </navigation>
