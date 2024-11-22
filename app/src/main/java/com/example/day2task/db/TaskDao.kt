@@ -11,7 +11,6 @@ import com.example.day2task.model.TaskDetail
 
 @Dao
 interface TaskDao {
-
     @Insert
     suspend fun insertTask(task: TaskDetail): Long
 

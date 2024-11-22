@@ -21,7 +21,7 @@ class DetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
 
         val taskDetails = args.task
@@ -45,18 +45,14 @@ class DetailFragment : Fragment() {
             override fun handleOnBackPressed() {
                 findNavController().popBackStack()
             }
-
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backPressedCallback)
-
         return binding.root
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

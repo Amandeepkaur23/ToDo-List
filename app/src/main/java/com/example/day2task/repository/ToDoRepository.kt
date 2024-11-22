@@ -1,7 +1,5 @@
 package com.example.day2task.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.day2task.api.RetrofitClient
 import com.example.day2task.db.TaskDao
 import com.example.day2task.model.TaskDetail
@@ -9,11 +7,7 @@ import com.example.day2task.model.TaskFromApi
 import retrofit2.Response
 
 class ToDoRepository(private val taskDao: TaskDao) {
-
-    val taskApi = RetrofitClient.getTaskApi()
-
-    private val _taskApiLiveData = MutableLiveData<TaskFromApi>()
-    val taskApiLiveData: LiveData<TaskFromApi> = _taskApiLiveData
+    private val taskApi = RetrofitClient.getTaskApi()
 
     var taskLiveData = taskDao.getTask()
 
@@ -23,7 +17,6 @@ class ToDoRepository(private val taskDao: TaskDao) {
 
     suspend fun insertAllTasks(tasks: List<TaskDetail>){
         taskDao.insertAllTasks(tasks)
-
     }
 
     suspend fun updateTask(task: TaskDetail){

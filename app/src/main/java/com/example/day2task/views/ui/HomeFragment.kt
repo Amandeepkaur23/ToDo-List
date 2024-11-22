@@ -60,9 +60,7 @@ class HomeFragment : Fragment() {
             taskList.clear()
             taskList.addAll(it)
             taskAdapter.notifyDataSetChanged()
-            Log.d("test", "observer called")
         })
-
 
         //delete item in recyclerView
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -78,7 +76,6 @@ class HomeFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
-                Log.d("test", "deleted pos: $position")
                 val deletedTask: TaskDetail = taskList[position]
 
                 toDoViewModel.deleteTask(deletedTask)
